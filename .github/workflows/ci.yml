@@ -29,9 +29,9 @@ jobs:
         working-directory: backend
         run: npm install
 
-      - name: Backend Check
+      - name: Check Backend Syntax
         working-directory: backend
-        run: node server.js
+        run: node --check server.js
 
 
   frontend-build:
