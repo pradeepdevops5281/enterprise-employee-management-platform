@@ -1,0 +1,66 @@
+name: Employee Management Platform CI/CD
+
+on:
+  push:
+    branches:
+      - main
+
+  pull_request:
+    branches:
+      - main
+
+
+jobs:
+
+  build-and-test:
+
+    runs-on: ubuntu-latest
+
+
+    steps:
+
+      # Step 1: Checkout Repository
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+
+      # Step 2: Setup Node.js
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+
+
+      # Step 3: Backend Dependencies
+      - name: Install Backend Dependencies
+        working-directory: backend
+        run: npm install
+
+
+      # Step 4: Frontend Dependencies
+      - name: Install Frontend Dependencies
+        working-directory: frontend
+        run: npm install
+
+
+      # Step 5: Frontend Build Test
+      - name: Build Frontend
+        working-directory: frontend
+        run: npm run build
+
+
+      # Step 6: Docker Compose Validation
+      - name: Validate Docker Compose
+        run: docker compose config
+
+
+      # Step 7: Build Docker Images
+      - name: Build Docker Images
+        run: docker compose build
+
+
+      # Step 8: Verify Deployment Script
+      - name: Check Deployment Script
+        run: |
+          chmod +x scripts/deploy.sh
+          bash -n scripts/deploy.sh
