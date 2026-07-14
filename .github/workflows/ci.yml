@@ -32,22 +32,22 @@ jobs:
       - name: Build Backend Image
         run: |
           docker build \
-          -t pradeepdevops5281/employee-management-backend:v1 \
+          -t pradeepdevops5281/employee-management-backend:latest1 \
           ./backend
 
 
       - name: Build Frontend Image
         run: |
           docker build \
-          -t pradeepdevops5281/employee-management-frontend:v1 \
+          -t pradeepdevops5281/employee-management-frontend:latest1 \
           ./frontend
 
 
       - name: Push Backend Image
         run: |
-          docker push pradeepdevops5281/employee-management-backend:v1
+          docker push pradeepdevops5281/employee-management-backend:latest
 
 
       - name: Push Frontend Image
         run: |
-          docker push pradeepdevops5281/employee-management-frontend:v1
+          docker push pradeepdevops5281/employee-management-frontend:latest
