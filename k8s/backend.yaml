@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: employee-backend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: employee-backend
+  template:
+    metadata:
+      labels:
+        app: employee-backend
+    spec:
+      containers:
+        - name: backend
+          image: pradeepdevops5281/employee-management-backend:latest
+          ports:
+            - containerPort: 5000
+          env:
+            - name: PORT
+              value: "5000"
+            - name: MONGO_URI
+              value: mongodb://admin:admin123@mongodb:27017/employee_management?authSource=admin
+            - name: JWT_SECRET
+              value: employee_secret_key
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: employee-backend
+spec:
+  selector:
+    app: employee-backend
+  ports:
+    - port: 5000
+      targetPort: 5000

@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: enterprise-frontend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: enterprise-frontend
+  template:
+    metadata:
+      labels:
+        app: enterprise-frontend
+    spec:
+      containers:
+        - name: frontend
+          image: enterprise-frontend:latest
+          imagePullPolicy: Never
+          ports:
+            - containerPort: 80

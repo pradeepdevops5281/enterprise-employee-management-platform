@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: enterprise-mongo
+spec:
+  selector:
+    app: enterprise-mongo
+  ports:
+    - protocol: TCP
+      port: 27017
+      targetPort: 27017
+  type: ClusterIP
