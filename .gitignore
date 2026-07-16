@@ -3,3 +3,9 @@ node_modules/
 dist/
 build/
 *.log
+
+# Terraform
+.terraform/
+*.tfstate
+*.tfstate.*
+crash.log
