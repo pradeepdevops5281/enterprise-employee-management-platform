@@ -22,7 +22,13 @@ jobs:
         uses: actions/checkout@v4
 
 
+      - name: Set Image Tag
+        id: image-tag
+        run: echo "TAG=${GITHUB_SHA::7}" >> "$GITHUB_OUTPUT"
+
+
       - name: Login to Docker Hub
+        if: github.event_name == 'push'
         uses: docker/login-action@v3
         with:
           username: ${{ secrets.DOCKER_USERNAME }}
@@ -33,6 +39,7 @@ jobs:
         run: |
           docker build \
           -t pradeepdevops5281/employee-management-backend:latest \
+          -t pradeepdevops5281/employee-management-backend:${{ steps.image-tag.outputs.TAG }} \
           ./backend
 
 
@@ -40,14 +47,19 @@ jobs:
         run: |
           docker build \
           -t pradeepdevops5281/employee-management-frontend:latest \
+          -t pradeepdevops5281/employee-management-frontend:${{ steps.image-tag.outputs.TAG }} \
           ./frontend
 
 
-      - name: Push Backend Image
+      - name: Push Backend Images
+        if: github.event_name == 'push'
         run: |
           docker push pradeepdevops5281/employee-management-backend:latest
+          docker push pradeepdevops5281/employee-management-backend:${{ steps.image-tag.outputs.TAG }}
 
 
-      - name: Push Frontend Image
+      - name: Push Frontend Images
+        if: github.event_name == 'push'
         run: |
           docker push pradeepdevops5281/employee-management-frontend:latest
+          docker push pradeepdevops5281/employee-management-frontend:${{ steps.image-tag.outputs.TAG }}
