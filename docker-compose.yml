@@ -1,5 +1,3 @@
-version: "3.8"
-
 services:
 
   mongodb:
@@ -16,7 +14,7 @@ services:
 
 
   backend:
-    build: ./backend
+    image: pradeepdevops5281/employee-management-backend:${IMAGE_TAG:-latest}
     container_name: employee-backend
     restart: always
     ports:
@@ -30,7 +28,7 @@ services:
 
 
   frontend:
-    build: ./frontend
+    image: pradeepdevops5281/employee-management-frontend:${IMAGE_TAG:-latest}
     container_name: employee-frontend
     restart: always
     ports:
