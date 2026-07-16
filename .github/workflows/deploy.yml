@@ -71,6 +71,8 @@ jobs:
 
             cd ~/employee-management
 
+            git pull
+
             docker pull pradeepdevops5281/employee-management-backend:latest
 
             docker pull pradeepdevops5281/employee-management-frontend:latest
@@ -80,3 +82,9 @@ jobs:
             docker compose up -d
 
             docker ps
+
+            echo "Running deployment health check..."
+
+            ./scripts/health-check.sh
+
+            echo "Deployment health check passed"
