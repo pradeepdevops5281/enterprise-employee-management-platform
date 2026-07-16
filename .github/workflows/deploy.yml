@@ -1,18 +1,18 @@
 name: Employee Management Platform CI/CD
 
 on:
-  push:
-    branches:
-      - main
-
-  pull_request:
-    branches:
-      - main
-
+  workflow_run:
+    workflows: ["Employee Management CI-CD"]
+    types:
+      - completed
 
 jobs:
 
   build-and-test:
+
+    if: >
+      github.event.workflow_run.conclusion == 'success' &&
+      github.event.workflow_run.head_branch == 'main'
 
     runs-on: ubuntu-latest
 
